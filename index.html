@@ -1,0 +1,69 @@
+
+<!doctype html>
+<html ng-app="controleSms">
+  <head>
+      <script src="./angular.js"></script>
+      <link rel="stylesheet" type="text/css" href="./bootstrap.css">
+      
+     <style>
+      .jumbotron{
+          width: 600px;
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 20px;
+      }
+     </style>
+      
+      <script>
+          angular.module("controleSms", []);
+          angular.module("controleSms").controller("controleSmsCrt", function($scope, $http){
+            $scope.app = "controleSms";
+
+            var get = function(url, callback){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    return callback(xhr.responseText);
+                }
+            };
+            xhr.open('GET', url);
+            xhr.send(null);
+        };
+            $scope.Msg = [{"_id":"5dc6ef58dd89971bc4f3deaf","user":"leoso","mensagem":"ddggg","createdAt":"2019-11-09T16:54:48.710Z","updatedAt":"2019-11-09T16:54:48.710Z","__v":0},{"_id":"5dc6ef5edd89971bc4f3deb0","user":"leoso","mensagem":"ddggssg","createdAt":"2019-11-09T16:54:54.859Z","updatedAt":"2019-11-09T16:54:54.859Z","__v":0},{"_id":"5dc6ef62dd89971bc4f3deb1","user":"leoso","mensagem":"ddggssg","createdAt":"2019-11-09T16:54:58.711Z","updatedAt":"2019-11-09T16:54:58.711Z","__v":0},{"_id":"5dc6ef66dd89971bc4f3deb2","user":"leoso","mensagem":"ddssggssg","createdAt":"2019-11-09T16:55:02.307Z","updatedAt":"2019-11-09T16:55:02.307Z","__v":0},{"_id":"5dc89d166b8fe8059084be3a","user":"leoso","mensagem":"ddssgngssg","createdAt":"2019-11-10T23:28:23.234Z","updatedAt":"2019-11-10T23:28:23.234Z","__v":0},{"_id":"5dc8b30f6b8fe8059084be3b","user":"leoso","mensagem":"ddssgngssg","createdAt":"2019-11-11T01:02:07.328Z","updatedAt":"2019-11-11T01:02:07.328Z","__v":0}];
+            $scope.Sms =  get('http://localhost:8080/user/leoso/sms', function(data){
+                console.log(data);
+            });
+          });
+
+        </script>
+    </head>
+  <body ng-controller="controleSmsCrt">
+      <div class="jumbotron">
+          
+          <h3 ng-bind="app"></h3>
+          
+          <input type="text" placeholder="Qual nome do usuário?"/>
+          <input type="text" placeholder="O que quer dizer?"/>
+          <input type="text" id="traduz" value="oi" placeholder="traduzir"/>
+          <button id="paranumero">Traduzir para número</button>
+          <button id="paratexto">Traduzir para texto</button>
+          
+          <table class="table table-striped">
+              <tr>
+                  <th>Nome</th>
+                  <th>Mensagem</th>
+                  <th>Data</a></th>
+              </tr>
+              <tr ng-repeat="sms in Msg">
+                  <td>{{sms.user}}</td>
+                  <td>{{sms.mensagem}}</td>
+                  <td>{{sms.updatedAt}}</td>
+              </tr>
+          </table>
+
+        
+      </div>
+      <script src="./bundle.js"></script>
+  </body>
+</html>
